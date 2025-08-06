@@ -46,7 +46,7 @@ void tree_map_inorder_print(TreeNode* node, int level) {
         printf("| ");  // Indent for better readability
     }
     if (node == NULL){ 
-         printf("\n");
+         printf("NULL\n");
         return;
     }
     printf("Key: %s, Value: %s, Parent: %s\n", node->key, node->value ,node->parent ? node->parent->key : "NULL");
@@ -61,6 +61,8 @@ void tree_map_dump(TreeMap* map) {
         return;  // If map is NULL, do nothing
     }
 
+    printf("---------- Dumping TreeMap ----------\n");
+
     // In a complete implementation, you would traverse the tree and print each key-value pair
     // This is a simplified version and does not perform any actual dumping
     printf("TreeMap contents (size: %zu):\n", map->size);
@@ -71,6 +73,8 @@ void tree_map_dump(TreeMap* map) {
         return;
     }
     tree_map_inorder_print(map->root, 0);
+
+    printf("---------- ---------- ----------\n");
 
 }
 
@@ -208,7 +212,39 @@ bool tree_map_remove(TreeMap* map, const char* key) {
         }
     } else {
 
-        
+
+        // Node has two children
+        // Find the in-order successor (smallest in the right subtree)
+        TreeNode* successor = current->right;
+        while (successor->left) {
+            successor = successor->left;
+        }
+
+        // Copy the successor's key and value to the current node
+        free(current->key);
+        free(current->value);
+        current->key = strdup(successor->key);
+        current->value = strdup(successor->value);
+
+        // Now remove the successor node
+        if (successor->parent) {
+            if (successor->parent->left == successor) {
+                successor->parent->left = successor->right;
+            } else {
+                successor->parent->right = successor->right;
+            }
+            if (successor->right) {
+                successor->right->parent = successor->parent;  // Set parent of right child
+            }
+        } else {
+            map->root = successor->right;  // Removing the root node
+            if (map->root) {
+                map->root->parent = NULL;  // Set parent of new root
+            }
+        }
+        free(successor->key);
+        free(successor->value);
+        free(successor);  // Free the successor node
     }
 
 

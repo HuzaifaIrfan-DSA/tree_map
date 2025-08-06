@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 // Demonstrate some basic assertions.
-TEST(TreeMapTest, Hi) {
+TEST(TreeMapTest, TreeMapOperations) {
   struct TreeMap *treeMap;
 
   // Initialize the TreeMap.
@@ -19,11 +19,12 @@ TEST(TreeMapTest, Hi) {
    treeMap->dump(treeMap); 
   EXPECT_TRUE(treeMap->insert(treeMap,"two", "2"));
   EXPECT_TRUE(treeMap->insert(treeMap,"three", "3"));
+  EXPECT_TRUE(treeMap->insert(treeMap,"five", "5"));
    printf("After insert:\n");
    treeMap->dump(treeMap); 
 
   // Check if the size of the TreeMap is as expected.
-  EXPECT_EQ(treeMap->size, 3);
+  EXPECT_EQ(treeMap->size, 4);
 
   // Check if the values can be retrieved correctly.
 
@@ -36,9 +37,9 @@ TEST(TreeMapTest, Hi) {
 
   // Remove a key-value pair and check if it was successful.
   EXPECT_TRUE(treeMap->remove(treeMap,"two"));
-  EXPECT_EQ(treeMap->size, 2);
+  EXPECT_EQ(treeMap->size, 3);
   EXPECT_EQ(treeMap->get(treeMap,"two"), nullptr);  // Should return an empty string after removal.
-   printf("After removal:\n");
+   printf("After removal of two:\n");
   treeMap->dump(treeMap); 
   // Check if the removed key no longer exists.
   EXPECT_FALSE(treeMap->contains(treeMap,"two"));
@@ -46,7 +47,8 @@ TEST(TreeMapTest, Hi) {
 
   EXPECT_TRUE(treeMap->insert(treeMap,"two", "22"));
 
-   printf("After reinsert:\n");
+   printf("After reinsert of two and remove one:\n");
+   EXPECT_TRUE(treeMap->remove(treeMap,"one"));
    treeMap->dump(treeMap); 
 
 

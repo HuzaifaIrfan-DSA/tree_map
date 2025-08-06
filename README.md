@@ -1,20 +1,19 @@
 # tree_map
 
 
-## Configure
+## Configure (cmake)
 ```sh
 sh configure.sh
 ```
 
-
-## Build
+## Build (cmake)
 ```sh
 sh build.sh
 ```
 
+## Test (GTest)
 
-## Run
 ```sh
-sh run.sh
+sh test.sh
 ```
 
