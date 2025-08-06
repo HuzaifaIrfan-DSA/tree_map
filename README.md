@@ -1,32 +1,20 @@
 # tree_map
 
+
+## Configure
+```sh
+sh configure.sh
+```
+
+
 ## Build
-
 ```sh
-mkdir -p build
+sh build.sh
 ```
 
+
+## Run
 ```sh
-cd build
-cmake -S ..
-make
+sh run.sh
 ```
-
-## Install
-
-
-```sh
-make install
-```
-
-## Test
-
-```sh
-cmake -S . -B build
-cmake --build build
-```
-```sh
-cd build && ctest
-```
-
 
