@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <string.h>
@@ -11,6 +12,7 @@ extern "C" {
 typedef struct TreeNode {
     char* key;
     char* value;
+    struct TreeNode* parent;  // Pointer to the parent node
     struct TreeNode* left;
     struct TreeNode* right;
 } TreeNode;
@@ -19,7 +21,10 @@ typedef struct TreeNode {
 typedef struct TreeMap {
     TreeNode* root;
     size_t size;  // Number of elements in the TreeMap
+
     // Function pointers for operations on the TreeMap
+    void (*dump)(struct TreeMap* map);
+
     bool (*insert)(struct TreeMap* map, const char* key, const char* value);
     const char* (*get)(const struct TreeMap* map, const char* key);
     bool (*remove)(struct TreeMap* map, const char* key);
@@ -47,6 +52,10 @@ void destroy_tree_map(TreeMap* map);
  * @param value The value associated with the key.
  * @return True if the insertion was successful, false otherwise.
  */
+
+
+void tree_map_dump(TreeMap* map);
+
 bool tree_map_insert(TreeMap* map, const char* key, const char* value);
 
 /**
