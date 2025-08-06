@@ -4,14 +4,11 @@
 
 ```sh
 mkdir -p build
+```
+
+```sh
 cd build
-```
-
-```sh
 cmake -S ..
-```
-
-```sh
 make
 ```
 
@@ -21,3 +18,15 @@ make
 ```sh
 make install
 ```
+
+## Test
+
+```sh
+cmake -S . -B build
+cmake --build build
+```
+```sh
+cd build && ctest
+```
+
+
