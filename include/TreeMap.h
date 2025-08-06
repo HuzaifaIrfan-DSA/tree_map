@@ -2,12 +2,31 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct TreeMap TreeMap;
+typedef struct TreeNode {
+    char* key;
+    char* value;
+    struct TreeNode* left;
+    struct TreeNode* right;
+} TreeNode;
+
+
+typedef struct TreeMap {
+    TreeNode* root;
+    // Function pointers for operations on the TreeMap
+    bool (*insert)(struct TreeMap* map, const char* key, const char* value);
+    const char* (*get)(const struct TreeMap* map, const char* key);
+    bool (*remove)(struct TreeMap* map, const char* key);
+    bool (*contains)(const struct TreeMap* map, const char* key);
+    size_t (*size)(const struct TreeMap* map);
+    void (*destroy)(struct TreeMap* map);
+    // Additional fields can be added as needed
+} TreeMap;
 
 /**
  * Creates a new TreeMap.
@@ -53,6 +72,8 @@ bool tree_map_remove(TreeMap* map, const char* key);
  * @return True if the key exists, false otherwise.
  */
 bool tree_map_contains(const TreeMap* map, const char* key);
+
+size_t tree_map_size(const TreeMap* map);
 
 #ifdef __cplusplus
 }

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 
 # Project name and version
-project(TreeMap VERSION 1.0)
+project(TreeMapApp VERSION 1.0)
 
 # C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -12,7 +12,9 @@ include_directories(include)
 
 # Gather source files
 file(GLOB_RECURSE SRC_FILES src/*.c)
-file(GLOB_RECURSE LIB_FILES lib/munit/*.c)
+file(GLOB_RECURSE LIB_FILES lib/*.c)
+
+add_library(TreeMap ./src/TreeMap.c)
 
 # Create executable (or library if needed)
 add_executable(${PROJECT_NAME} ./src/main.c)
@@ -33,13 +35,21 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(
-  hello_test
-  test/hello_test.cc
+  TreeMap_test
+  test/TreeMap_test.cc
 )
+
+target_include_directories(
+  TreeMap_test
+  PRIVATE
+  include
+)
+
 target_link_libraries(
-  hello_test
+  TreeMap_test
+  TreeMap
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(hello_test)
+gtest_discover_tests(TreeMap_test)
