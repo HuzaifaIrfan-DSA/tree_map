@@ -11,7 +11,7 @@ TEST(TreeMapTest, Hi) {
   ASSERT_NE(treeMap, nullptr);  // Ensure the TreeMap was created successfully.
 
   // Check if the TreeMap is initially empty.
-  EXPECT_EQ(treeMap->size(treeMap), 0);
+  EXPECT_EQ(treeMap->size, 0);
 
   // Insert some key-value pairs into the TreeMap.
   EXPECT_TRUE(treeMap->insert(treeMap,"one", "1"));
@@ -19,20 +19,20 @@ TEST(TreeMapTest, Hi) {
   EXPECT_TRUE(treeMap->insert(treeMap,"three", "3"));
 
   // Check if the size of the TreeMap is as expected.
-  EXPECT_EQ(treeMap->size(treeMap), 3);
+  EXPECT_EQ(treeMap->size, 3);
 
   // Check if the values can be retrieved correctly.
-  EXPECT_EQ(treeMap->get(treeMap,"one"), "1");
-  EXPECT_EQ(treeMap->get(treeMap,"two"), "2");
-  EXPECT_EQ(treeMap->get(treeMap,"three"), "3");
+  EXPECT_EQ(strcmp(treeMap->get(treeMap,"one"), "1"), 0);
+  EXPECT_EQ(strcmp(treeMap->get(treeMap,"two"), "2"), 0);
+  EXPECT_EQ(strcmp(treeMap->get(treeMap,"three"), "3"), 0);
 
-  // Check if a non-existing key returns an empty string.
-  EXPECT_EQ(treeMap->get(treeMap,"four"), "");
+  // Check if a non-existing key returns NULL.
+  EXPECT_EQ(*treeMap->get(treeMap,"four"), NULL);
 
   // Remove a key-value pair and check if it was successful.
   EXPECT_TRUE(treeMap->remove(treeMap,"two"));
-  EXPECT_EQ(treeMap->size(treeMap), 2);
-  EXPECT_EQ(treeMap->get(treeMap,"two"), "");  // Should return an empty string after removal.
+  EXPECT_EQ(treeMap->size, 2);
+  EXPECT_EQ(*treeMap->get(treeMap,"two"), NULL);  // Should return an empty string after removal.
 
   // Check if the removed key no longer exists.
   EXPECT_FALSE(treeMap->contains(treeMap,"two"));

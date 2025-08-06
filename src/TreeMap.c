@@ -7,33 +7,17 @@ TreeMap* create_tree_map() {
     TreeMap* map = (TreeMap*)malloc(sizeof(TreeMap));
     if (map) {
         map->root = NULL;  // Initialize the root to NULL  
+        map->size = 0;
         map->insert = tree_map_insert;  // Assign function pointers
         map->get = tree_map_get;
         map->remove = tree_map_remove;
         map->contains = tree_map_contains;
-        map->size = tree_map_size;  // Assign size function
         map->destroy = destroy_tree_map;  // Assign destroy function
     }
     
     return map;
 }
 
-size_t tree_map_size(const TreeMap* map) {
-    if (!map) {
-        return 0;  // If map is NULL, return size 0
-    }
-
-    // Here you would typically traverse the tree and count the nodes
-    // For simplicity, we will return a placeholder value
-    // In a complete implementation, you would need to implement a function to count nodes
-    size_t count = 0;
-
-    // Placeholder logic for counting nodes (not implemented here)
-    // In a real implementation, you would traverse the tree and count each node
-    // This is a simplified version and does not handle all edge cases
-
-    return count;  // Return the counted size
-}
 
 void destroy_tree_map(TreeMap* map) {
     if (map) {
@@ -76,6 +60,7 @@ bool tree_map_insert(TreeMap* map, const char* key, const char* value) {
     // This is a placeholder for the actual insertion logic
     if (map->root == NULL) {
         map->root = newNode;  // If the tree is empty, set the new node as root
+        map->size++;  // Increment the size of the TreeMap
     } else {
         // Logic to insert the new node in the correct position would go here
         TreeNode* current = map->root;
@@ -93,8 +78,12 @@ bool tree_map_insert(TreeMap* map, const char* key, const char* value) {
         // Insert the new node as a child of the parent
         if (strcmp(key, parent->key) < 0) {
             parent->left = newNode;
+            map->size++;  // Increment the size of the TreeMap
+            return true;  // Return true to indicate successful insertion
         } else {
             parent->right = newNode;
+            map->size++;  // Increment the size of the TreeMap
+            return true;  // Return true to indicate successful insertion
         }
     }
 
@@ -154,6 +143,8 @@ bool tree_map_remove(TreeMap* map, const char* key) {
 
     TreeNode* current = map->root;
     TreeNode* parent = NULL;
+
+    map->size--; 
 
     // Find the node to remove
     while (current && strcmp(key, current->key) != 0) {

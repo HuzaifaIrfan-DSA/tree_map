@@ -18,12 +18,12 @@ typedef struct TreeNode {
 
 typedef struct TreeMap {
     TreeNode* root;
+    size_t size;  // Number of elements in the TreeMap
     // Function pointers for operations on the TreeMap
     bool (*insert)(struct TreeMap* map, const char* key, const char* value);
     const char* (*get)(const struct TreeMap* map, const char* key);
     bool (*remove)(struct TreeMap* map, const char* key);
     bool (*contains)(const struct TreeMap* map, const char* key);
-    size_t (*size)(const struct TreeMap* map);
     void (*destroy)(struct TreeMap* map);
     // Additional fields can be added as needed
 } TreeMap;
