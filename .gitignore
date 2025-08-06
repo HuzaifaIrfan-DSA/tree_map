@@ -55,3 +55,14 @@ dkms.conf
 *.dwo
 build/
 main
+TreeMap
+
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+CMakeLists.txt.user
+CTestTestfile.cmake
+cmake_install.cmake
+
+
+.vscode/
